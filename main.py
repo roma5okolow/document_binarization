@@ -1,27 +1,23 @@
-import matplotlib.pyplot as plt
-import numpy as np
-from models import otsu_threshold, niblack_threshold, modified_otsu_threshold, postnikov_threshold
+from models import otsu_threshold, niblack_threshold, modified_otsu_threshold, postnikov_threshold, my_otsu_threshold
+from utils import load_grayscale_images, save_results
+from pathlib import Path
 
-def display_results(images, results, titles):
-    plt.figure(figsize=(12, 8))
-    for i, (image, result, title) in enumerate(zip(images, results, titles)):
-        plt.subplot(2, len(images), i + 1)
-        plt.imshow(image, cmap='gray')
-        plt.title(f'Original {i+1}')
-        plt.axis('off')
+IMG_ROOT = Path('binarization_dataset/Задача 1 -- бинаризация')
+RES_ROOT = Path('results')
 
-        plt.subplot(2, len(images), i + 1 + len(images))
-        plt.imshow(result, cmap='gray')
-        plt.title(title)
-        plt.axis('off')
-    plt.show()
+images = load_grayscale_images(IMG_ROOT)
 
 results_otsu = [otsu_threshold(img) for img in images]
 results_mod_otsu = [modified_otsu_threshold(img) for img in images]
 results_niblack = [niblack_threshold(img) for img in images]
 results_postnikov = [postnikov_threshold(img) for img in images]
+results_my_otsu = [my_otsu_threshold(img) for img in images]
 
-display_results(images, results_otsu, ['Otsu' for _ in images])
-display_results(images, results_mod_otsu, ['Mod. Otsu' for _ in images])
-display_results(images, results_niblack, ['Niblack' for _ in images])
-display_results(images, results_postnikov, ['Postnikov' for _ in images])
+
+
+
+save_results(RES_ROOT / "otsu", images, results_otsu, [f'Otsu{i}.png' for i in range(len(images))])
+save_results(RES_ROOT / "mod_otsu", images, results_mod_otsu, [f'Mod_otsu{i}.png' for i in range(len(images))])
+save_results(RES_ROOT / "niblack", images, results_niblack, [f'Niblack{i}.png' for i in range(len(images))])
+save_results(RES_ROOT / "postnikov", images, results_postnikov, [f'Postnikov{i}.png' for i in range(len(images))])
+save_results(RES_ROOT / "my_otsu", images, results_my_otsu, [f'my_otsu{i}.png' for i in range(len(images))])

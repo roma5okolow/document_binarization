@@ -1,0 +1,4 @@
+.vscode
+binarization_dataset
+results
+*.pyc
