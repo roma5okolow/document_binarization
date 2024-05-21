@@ -32,7 +32,7 @@ If you want, you can download test images (https://vis.iitp.ru/binarization_data
 ```bash
 python3 utils/load_data.py
 ```
-
+To start binarizing images from IMG_ROOT, run
 ```bash
 python3 main.py
 ```
