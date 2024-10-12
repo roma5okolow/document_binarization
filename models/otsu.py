@@ -10,6 +10,9 @@ def my_otsu_threshold(image):
     sigma_best = 0
     freqs, _ = np.histogram(image, bins=range(256), density=True)
     first_nonzero = 0
+    
+    if np.any(np.isclose(freqs, 1, rtol=1e-9)):
+        return image > 0
 
     while np.isclose(freqs[first_nonzero], 0, rtol=1e-9):
         first_nonzero += 1

@@ -15,12 +15,9 @@ def postnikov_threshold(image, k=-1, a = 0, initial_window_size=40, sigma0=20):
         threshold = niblack_threshold(image, k, a, window_size)
         binary = image > threshold
         stddev = np.std(threshold)
-        print(stddev)
         print(f"{window_size=}")
         if stddev >= sigma0:
-            print(f"finished")
             return (binary * 255).astype(np.uint8)
         window_size *= 2
 
-    # Если не удалось принять решение, возвращаем пустое изображение
     return np.zeros_like(image)
